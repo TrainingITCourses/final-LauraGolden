@@ -1,13 +1,17 @@
 <p *ngIf="lanzamientos?.length === 0">
     <app-counter 
         [counter]="{message: 'No se ha encontrado ningún lanzamiento del estado ' + estadoSel}"
-        [escondeBotones]="{fechas: true, volver: false}">
+        [escondeBotones]="{fechas: true, volver: false}"
+        (bVolver)= "onClickV()">
     </app-counter>    
 </p>
 <div lgm-launches-list *ngIf="lanzamientos?.length > 0">    
     <app-counter 
         [counter]="{counter: lanzamientos.length , message: 'Lanzamientos del estado ' + estadoSel + ' encontrados: '}"
-        [escondeBotones]="{fechas: false, volver: false}">
+        [escondeBotones]="{fechas: false, volver: false}"
+        (bVolver)= "onClickV()"
+        (bFechaA)= "onClickFechaA()"
+        (bFechaD)= "onClickFechaD()">
     </app-counter>    
     <ul class = "listas">
     <li *ngFor="let lanzamiento of lanzamientos;"        

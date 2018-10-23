@@ -5,4 +5,5 @@ export interface Lanzamiento {
     name: string;
     status: number;
     missions: Mision[];
+    windowstart: Date;
 }

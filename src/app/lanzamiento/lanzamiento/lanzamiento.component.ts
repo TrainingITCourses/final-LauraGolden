@@ -4,7 +4,8 @@ import { GlobalState } from '../..';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargarLanzamiento } from '../../reducers/lanzamiento/lanzamiento.actions';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-lanzamiento',
@@ -15,7 +16,12 @@ import { ActivatedRoute } from '@angular/router';
 export class LanzamientoComponent implements OnInit {
   public lanzamiento$: Observable<any>;
   private idLanzamiento: number;
-  constructor(private store: Store<GlobalState>, private activatedRoute: ActivatedRoute) { }
+  constructor(
+      private store: Store<GlobalState>,
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
+      private location: Location
+      ) { }
 
   ngOnInit() {
     console.log('Lanzamiento_ngOnInit');
@@ -38,5 +44,7 @@ export class LanzamientoComponent implements OnInit {
     );
   }
 
-
+  onClickV($event) {
+    this.location.back();
+  }
 }

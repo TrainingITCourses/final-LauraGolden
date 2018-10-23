@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit,EventEmitter, Output} from '@angular/core';
 import { Informacion } from '../../interfaces/informacion';
 import { Router } from '@angular/router';
 
@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
 export class CounterComponent implements OnInit {
   @Input() public counter: Informacion;
   @Input() public escondeBotones: { fechas: false, volver: false };
-  // @Input() public escondeFechas: boolean;
-  // @Input() public escondeVolver: boolean;
+  @Output() public bVolver = new EventEmitter<any>();
+  @Output() public bFechaD = new EventEmitter<any>();
+  @Output() public bFechaA = new EventEmitter<any>();
+
   constructor(private router: Router) {}
 
   ngOnInit() {
@@ -20,14 +22,16 @@ export class CounterComponent implements OnInit {
   }
 
   onClickFD() {
-
+    // Fecha más reciente
+    this.bFechaD.emit();
   }
 
   onClickFA() {
-
+    // Fecha menos reciente
+    this.bFechaA.emit();
   }
 
   onClickV() {
-    this.router.navigate( ['/'] );
+    this.bVolver.emit();
   }
 }

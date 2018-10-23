@@ -1,5 +1,8 @@
 <app-launches-list 
     [estadoSel] = "estadoSel"
     [lanzamientos]="lanzamientos$ | async"
+    (botonVolver) = "onClickV($event)"
+    (botonFechaA) = "onClickFechaA()"
+    (botonFechaD) = "onClickFechaD()"
     relativePath='lanzamiento'>
 </app-launches-list>

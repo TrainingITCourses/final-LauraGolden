@@ -1,7 +1,8 @@
 <div lgm-launches-card *ngIf="lanzamiento!=null">    
     <app-counter 
         [counter] ="{message: 'Lanzamiento '}"
-        [escondeBotones]="{fechas: true, volver: false}">
+        [escondeBotones]="{fechas: true, volver: false}"
+        (bVolver)= "onClickV()">
     </app-counter>
     <div lgm-lanzamiento>
         <h1>{{lanzamiento[0].name}}</h1>

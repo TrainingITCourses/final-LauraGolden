@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { GlobalState } from '../..';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
+
 
 @Component({
   selector: 'app-lanzamientos',
@@ -19,7 +20,8 @@ export class LanzamientosComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private store: Store<GlobalState>
+    private store: Store<GlobalState>,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -45,4 +47,13 @@ export class LanzamientosComponent implements OnInit {
     );
   }
 
+  onClickV($event) {
+    this.router.navigate( ['/'] );
+  }
+  onClickFechaA() {
+    console.log('Ordenar fecha Ascendiente (menos reciente)');
+  }
+  onClickFechaD() {
+    console.log('Ordenar fecha descendiente (más reciente)');
+  }
 }

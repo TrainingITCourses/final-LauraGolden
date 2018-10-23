@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-launches-card',
@@ -6,8 +6,9 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, AfterViewInit } from
   styleUrls: ['./launches-card.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LaunchesCardComponent implements OnInit, AfterViewInit {
+export class LaunchesCardComponent implements OnInit {
   @Input() public lanzamiento: any = [];
+  @Output() public botonVolver = new EventEmitter<any>();
 
   constructor() { }
 
@@ -15,9 +16,7 @@ export class LaunchesCardComponent implements OnInit, AfterViewInit {
     console.log('Launches-Card_ngOnInit');
   }
 
-  ngAfterViewInit() {
-    console.log(this.lanzamiento);
-
+  onClickV() {
+    this.botonVolver.emit('lanzamientos');
   }
-
 }
