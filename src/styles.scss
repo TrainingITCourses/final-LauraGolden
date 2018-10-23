@@ -1,0 +1,276 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; overflow: hidden; }
+
+.loader {
+      display: flex;
+      height: 50vh;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .spinner {
+      height: 10vh;
+      width: 10vh;
+      border: 10px solid #d18017;
+      border-top-color: #fffffa;
+      border-radius: 100%;
+      animation: rotation 1s infinite linear 0.25s;
+      opacity: 0;
+  }
+
+  @keyframes rotation {
+      from {
+        opacity: 1;
+        transform: rotate(0deg);
+      }
+      to {
+        opacity: 1;
+        transform: rotate(359deg);
+      }
+  }
+
+  [lgm-page] {
+      margin:0px auto;
+      width:900px;
+  }
+
+  [lgm-header]{
+    position: fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:120px;
+    background-color:#333;
+    color:#d18017;
+    padding:25px;
+    z-index: 100;
+
+    h1 {
+      color:#d18017;
+      text-align:center;
+    }
+    h2 {
+      color:#d18017;
+      text-align: left;
+    }
+    div {
+      display: flex;
+    }
+    button {
+      width: 190px;
+      height: 50px;
+    }
+    span {
+      width: calc(100% - 18%);
+    }
+  }
+  * html body{
+    overflow:hidden;
+  }
+
+  [lgm-content]{
+    align-content: left;
+    // height:100%;
+    overflow:auto;
+    padding:90px;
+    width:800px;
+  }
+
+  [lgm-counter] {
+    h1{
+      padding-left: 5px;
+      color: #d18017;
+      background-color: #333;
+      border-radius: 50px;
+      height: 20px;
+      font-size:18px;
+      padding: 10px;
+      z-index: 100;
+    }
+    div {
+      display: flex;
+      background-color: #333;
+      border-radius: 50px;
+    }
+    span {
+      width: calc(100% - 40%);
+    }
+
+    [lgm-button3]{
+      font-family: 'Roboto';
+      background-color: #d18017;
+      color: #333;
+      align-content: right;
+      border-radius: 50px;
+      font-size:12px;
+      float: right;
+      width: 80px;
+      height: 40px;
+      margin-top: 15px;
+      cursor: pointer;
+      cursor: hand;
+    }
+
+    button {
+      font-family: 'Roboto';
+      background-color: #d18017;
+      color: #333;
+      align-content: right;
+      border-radius: 50px;
+      font-size:12px;
+      float: right;
+      width: 135px;
+      height: 40px;
+      margin-top: 15px;
+      cursor: pointer;
+      cursor: hand;
+    }
+  }
+
+  [lgm-lanzamiento]{
+    // display : flex;
+    // height: 100px;
+    // width: 100%;
+    table {
+      border:1px solid grey;
+      border-collapse:separate;
+      border-spacing: 2px;
+    }
+
+    td {
+      padding: 1em;
+      border:1px solid green;
+    }
+
+    .wrap {
+      display: flex;
+      background: lightblue;
+      width: 80%;
+      margin: 1em auto;
+    }
+
+    .wrap table {
+      flex:1;
+      margin: 0 1em;
+     background: #bada55;
+    }
+  }
+
+  button {
+    font-family: 'Roboto';
+    background-color: #333;
+    padding: 12px;
+    color: #d18017;
+    align-content: left;
+    border-radius: 50px;
+    font-size:15px;
+    float:left;
+    cursor: pointer;
+    cursor: hand;
+  }
+
+  p {
+    font-family: 'Roboto';
+  }
+
+  li {
+    font-family: 'Roboto';
+    left: 0;
+    background-color: rgba(233, 231, 231, 0.842);
+    margin: .3em;
+    padding: .3em 0;
+    height: 0.9em;
+    border-radius: 4px;
+    font-family: 'italic-text';
+  }
+
+  select {
+    font-family: 'Roboto';
+    border-radius: 4px;
+    padding-left:8px;
+    width: 400px;
+    height: 20px;
+  }
+
+  div {
+    font-family: 'Roboto';
+  }
+
+  h1 {
+    font-family: 'Roboto';
+  }
+
+  h2 {
+    font-family: 'Roboto';
+  }
+
+  h3 {
+    font-family: 'Roboto';
+  }
+
+  h4 {
+    font-family: 'Roboto';
+  }
+
+  .listas {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+  }
+  .listas li {
+    position: relative;
+    cursor: pointer;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+
+  .listas li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+  }
+
+  .listas a {
+    color: #888;
+    text-decoration: none;
+    position: relative;
+    display: block;
+  }
+
+  .listas a:hover {
+    color:#607D8B;
+  }
+
+  [lgm-launches-list]{
+    height: calc(100% - 170px - 64px - 25px);
+  }
+  [lgm-states-list]{
+    height: calc(100% - 170px - 64px - 25px);
+  }
+
+  [lgm-launches-card]{
+    height: calc(100% - 170px - 64px - 25px);
+  }
+
+  [lgm-cuadrado] {
+    display: inline-block;
+    font-size: small;
+    color: #d18017;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #333;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    min-width: 16px;
+    text-align: right;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }

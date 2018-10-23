@@ -1,0 +1,7 @@
+
+<div style= "height: 100%" *ngIf="estados$ | async as estados" >    
+    <app-states-list 
+        [estados]="estados$ | async"
+        relativePath='lanzamientos'>
+    </app-states-list>
+</div>
