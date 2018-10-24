@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit,EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import { Informacion } from '../../interfaces/informacion';
 import { Router } from '@angular/router';
 

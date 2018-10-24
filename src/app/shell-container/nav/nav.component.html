@@ -10,3 +10,15 @@
       </div>      
   </div>   
 </div>
+<div lgm-counter>
+  <div>      
+      <h1>{{bEstado?.message}} {{ bEstado?.counter }} </h1>      
+      <span></span>
+      <div *ngIf="escondeBotones">
+        <button *ngIf="!escondeBotones.fechas" #boton1 (click)="onClickFD()">Fecha más reciente</button>
+        <button *ngIf="!escondeBotones.fechas" #boton2 (click)="onClickFA()">Fecha más antigua</button>
+        <button *ngIf="!escondeBotones.volver" lgm-button3 #boton3 (click)="onClickV()">Volver</button>
+    </div>
+  </div>    
+</div>
+

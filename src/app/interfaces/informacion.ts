@@ -1,4 +1,4 @@
 export interface Informacion {
     counter: number;
-    messaje: string;
+    message: string;
 }

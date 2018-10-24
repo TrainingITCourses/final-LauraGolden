@@ -1,9 +1,9 @@
 <p *ngIf="estados?.length == 0">No se ha encontrado ningún estado</p>
 <div lgm-states-list *ngIf="estados?.length > 0">
-    <app-counter 
+    <!-- <app-counter 
         [counter]="{counter:estados.length, message:'Estados encontrados'}"
         [escondeBotones] = "{fechas: true, volver: true}">
-    </app-counter>    
+    </app-counter>     -->
     <ul class="listas">
     <li *ngFor="let estado of estados;"        
         (click)="onEstadoSeleccionado(estado)">        
