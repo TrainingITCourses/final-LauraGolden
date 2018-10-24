@@ -3,7 +3,17 @@ import { Action } from '@ngrx/store';
 export enum LanzamientosActionTypes {
   CargarLanzamientos = '[Lanzamientos] Cargar',
   LanzamientosCargados = '[Lanzamientos] Cargados',
-  LanzamientosNoCargados = '[Lanzamientos] No Cargados'
+  LanzamientosNoCargados = '[Lanzamientos] No Cargados',
+  OrdenarFechaD = '[Lanzamientos] Ordenar Fecha más Reciente',
+  OrdenarFechaA = '[Lanzamientos] Ordenar Fecha más Antigua'
+}
+
+export class OrdenarFechaD implements Action {
+  readonly type = LanzamientosActionTypes.OrdenarFechaD;
+}
+
+export class OrdenarFechaA implements Action {
+  readonly type = LanzamientosActionTypes.OrdenarFechaA;
 }
 
 export class CargarLanzamientos implements Action {
@@ -24,7 +34,9 @@ export class LanzamientosNoCargados implements Action {
 export type LanzamientosActions =
   | CargarLanzamientos
   | LanzamientosCargados
-  | LanzamientosNoCargados;
+  | LanzamientosNoCargados
+  | OrdenarFechaD
+  | OrdenarFechaA;
 
 
 
