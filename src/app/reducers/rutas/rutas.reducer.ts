@@ -17,14 +17,10 @@ export const initialState: RutasState = {
 export function reducer(state = initialState, action: RutasActions): RutasState {
   switch (action.type) {
     case RutasActionTypes.CargarRuta:
-      return { ...state };
-    case RutasActionTypes.RutaCargada:
       state.cargada = true;
       state.idRuta = action.payload[0];
       state.nombre = action.payload[1];
-      return {...state};
-
-      // return { ...state, rutas: action.payload };
+      return { ...state };
     default:
       return state;
   }

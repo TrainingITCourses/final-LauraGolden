@@ -7,9 +7,8 @@ import { Informacion } from '../../interfaces/informacion';
 import { Botones } from '../../interfaces/botones';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Ruta } from 'src/app/interfaces/ruta';
-import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
@@ -20,10 +19,8 @@ import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.act
 export class NavComponent implements OnInit {
   public bEstado: Informacion;
   public escondeBotones: Botones;
-  public estados: any;
   public lanzamientos$: Observable<any>;
-  // public rutaActual: Ruta;
-  // public rutaActual$: Observable<any>;
+  public rutaActual: string;
 
   @Input() public titulo: string;
   @Input() public version: string;
@@ -31,48 +28,44 @@ export class NavComponent implements OnInit {
   constructor(
     private route: Router,
     private activatedRoute: ActivatedRoute,
-    private store: Store<GlobalState>
+    private store: Store<GlobalState>,
+    private location: Location
 
     // private swUpdate: SwUpdate
     ) {}
 
   ngOnInit() {
     console.log('app-nav_ngOnInit');
+    this.cargarObservables();
+    this.cargarDatos();
+  }
 
+  cargarDatos() {
     const e: Informacion = {
       counter: 0,
       message: ''
     };
     const b: Botones = {
-      fechas: false,
-      volver: false
+      fechas: true,
+      volver: true
     };
     this.bEstado = e;
     this.escondeBotones = b;
+  }
 
-    this.store.select('lanzamientos').subscribe(lan => {
-      this.lanzamientos$ = this.store
-        .select('lanzamientos')
-        .pipe(
-          map(lan2 => {
-            if (lan2.cargados) {
-              const es: Informacion = {
-                counter: lan2.lanzamientos.length,
-                message: 'Estados'
-              };
-              return lan2.lanzamientos;
-            }
-          })
-        );
-    });
-
-
+  cargarObservables() {
     this.store.select('ruta').subscribe(r => {
       if (r.cargada) {
         switch (r.nombre) {
-        case 'estado':
-          this.store.select('estados').subscribe(est => { this.estados = est; });
-          this.store.dispatch(new CargarLanzamientos(0));
+        case 'estados':
+          this.rutaActual = 'estados';
+          const be: Botones = {
+            fechas: true,
+            volver: true
+          };
+          this.escondeBotones = be;
+          // this.store.select('estados').subscribe(est => { this.estados = est; });
+          this.store.dispatch(new CargarLanzamientos(null));
           // this.estados = est.estados;
           // this.rutaActual$ = this.store
           //     .select('ruta')
@@ -85,13 +78,54 @@ export class NavComponent implements OnInit {
           //     );
           break;
         case 'lanzamientos':
+          this.rutaActual = 'lanzamientos';
+          const bl: Botones = {
+            fechas: true,
+            volver: true
+          };
+          this.escondeBotones = bl;
+          console.log('ruta lanzamientos');
           break;
         case 'lanzamiento':
+          this.rutaActual = 'lanzamiento';
+          const bl2: Botones = {
+            fechas: false,
+            volver: true
+          };
+          this.escondeBotones = bl2;
+          console.log('ruta lanzamiento');
           break;
         }
       }
 
     });
+
+    this.lanzamientos$ = this.store.select('lanzamientos').pipe(
+      map(lan => {
+        if (lan.cargados) {
+          const es: Informacion = {
+            counter: lan.lanzamientos.length,
+            message: 'Estados: número de lanzamientos '
+          };
+          this.bEstado = es;
+          return lan.lanzamientos;
+        }
+      })
+    );
+  }
+
+  onClickFD() {
+    // Fecha más reciente
+
+  }
+
+  onClickFA() {
+    // Fecha menos reciente
+
+  }
+
+  onClickV() {
+    this.location.back();
   }
 
 
@@ -122,19 +156,5 @@ export class NavComponent implements OnInit {
   //       console.error(err);
   //     });
   // }
-
-  onClickFD() {
-    // Fecha más reciente
-
-  }
-
-  onClickFA() {
-    // Fecha menos reciente
-
-  }
-
-  onClickV() {
-
-  }
 
 }

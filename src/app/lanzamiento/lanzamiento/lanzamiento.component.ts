@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { CargarLanzamiento } from '../../reducers/lanzamiento/lanzamiento.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
 
 @Component({
   selector: 'app-lanzamiento',
@@ -32,6 +33,7 @@ export class LanzamientoComponent implements OnInit {
   private cargaDatos() {
     this.idLanzamiento = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargarLanzamiento([this.idLanzamiento]));
+    this.store.dispatch(new CargarRuta([this.idLanzamiento , 'lanzamiento']));
   }
 
   private cargaObservables() {

@@ -19,9 +19,10 @@ export function reducer(state = initialState, action: LanzamientosActions): Lanz
     case LanzamientosActionTypes.CargarLanzamientos:
       return {...state, cargados: false};
     case LanzamientosActionTypes.LanzamientosCargados:
+      state.cargados = true;
       state.lanzamientos = action.payload;
       state.mensaje = null;
-      return {...state, cargados: true };
+      return {...state};
     case LanzamientosActionTypes.LanzamientosNoCargados:
       state.lanzamientos = [];
       state.mensaje = action.payload;

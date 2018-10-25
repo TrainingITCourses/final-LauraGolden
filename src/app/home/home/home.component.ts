@@ -30,11 +30,7 @@ export class HomeComponent implements OnInit {
 
   private cargaDatos() {
     this.store.dispatch(new CargarEstados());
-    const r: Ruta = {
-      idRuta: 0,
-      nombre: 'estados'
-    };
-    this.store.dispatch(new CargarRuta(r));
+    this.store.dispatch(new CargarRuta([0 , 'estados']));
   }
 
   private cargaObservables() {

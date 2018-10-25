@@ -27,10 +27,8 @@ export class ApiService {
             })
         )
       );
-    } else if (valor === 0 ) {
-       return this.httpC.get('../../assets/launchlibrary.json').pipe(map((res: any) => res.launches));
     } else {
-      return of([]);
+          return this.httpC.get('../../assets/launchlibrary.json').pipe(map((res: any) => res.launches));
     }
   }
 

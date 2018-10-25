@@ -5,6 +5,7 @@ import { GlobalState } from '../..';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
+import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class LanzamientosComponent implements OnInit {
     // Cogemos el id del estado para filtrar lanzamientos
     this.idEstado = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargarLanzamientos([this.idEstado]));
+    this.store.dispatch(new CargarRuta([this.idEstado , 'lanzamientos']));
   }
 
   private cargaObservables() {
