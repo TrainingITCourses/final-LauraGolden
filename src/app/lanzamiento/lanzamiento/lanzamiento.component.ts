@@ -38,7 +38,7 @@ export class LanzamientoComponent implements OnInit {
     this.lanzamiento$ = this.store.select('lanzamiento').pipe(
       map(Lan => {
         if (Lan.cargado) {
-          return Lan.lanzamiento;
+          return Lan.lanzamiento[0];
         }
       })
     );

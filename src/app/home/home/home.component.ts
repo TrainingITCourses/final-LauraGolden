@@ -4,6 +4,8 @@ import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { GlobalState } from '../..';
 import { CargarEstados } from '../../reducers/estados/estados.actions';
+import { CargarRuta } from '../../reducers/rutas/rutas.actions';
+import { Ruta } from '../../interfaces/ruta';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +30,11 @@ export class HomeComponent implements OnInit {
 
   private cargaDatos() {
     this.store.dispatch(new CargarEstados());
+    const r: Ruta = {
+      idRuta: 0,
+      nombre: 'estados'
+    };
+    this.store.dispatch(new CargarRuta(r));
   }
 
   private cargaObservables() {

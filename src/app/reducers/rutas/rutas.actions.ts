@@ -8,12 +8,12 @@ export enum RutasActionTypes {
 
 export class CargarRuta implements Action {
   readonly type = RutasActionTypes.CargarRuta;
-  constructor(readonly payload: any) {}
+  constructor(readonly payload: Ruta) {}
 }
 
 export class RutaCargada implements Action {
   readonly type = RutasActionTypes.RutaCargada;
-  constructor(public readonly payload: Ruta[]) { }
+  constructor(public readonly payload: Ruta) { }
 }
 
 export type RutasActions =
