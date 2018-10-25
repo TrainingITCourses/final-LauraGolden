@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Informacion } from '../../interfaces/informacion';
 // import { SwUpdate } from '@angular/service-worker';
 import { Botones } from '../../interfaces/botones';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -15,8 +15,7 @@ import { Observable } from 'rxjs';
 export class NavComponent implements OnInit {
   public bEstado: Informacion;
   public escondeBotones: Botones;
-  public rutaActual$: Observable<any>;
-  paramsSubscription: any;
+  // public rutaActual$: Observable<any>;
 
   @Input() public titulo: string;
   @Input() public version: string;
@@ -26,12 +25,12 @@ export class NavComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
 
     // private swUpdate: SwUpdate
-    ) { }
+    ) {}
 
   ngOnInit() {
     console.log('app-nav_ngOnInit');
 
-     const e: Informacion = {
+    const e: Informacion = {
       counter: 7,
       message: 'Estados'
     };
@@ -42,14 +41,6 @@ export class NavComponent implements OnInit {
     };
     this.bEstado = e;
     this.escondeBotones = b;
-
-    // this.rutaActual = this.activatedRoute.snapshot.params['id'];
-    // this.rutaActual$ = this.activatedRoute.data.subscribe(est => console.log(est));
-    this.paramsSubscription = this.activatedRoute.params.subscribe(params => {
-      console.log(params);
-
-    });
-
   }
 
 
