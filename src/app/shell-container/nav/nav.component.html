@@ -15,11 +15,10 @@
       
       <h1>{{bEstado?.message}} {{ bEstado?.counter }} </h1>      
       <span></span>
-      <div *ngIf="escondeBotones">
-        <button *ngIf="!escondeBotones.fechas" #boton1 (click)="onClickFD()">Fecha más reciente</button>
-        <button *ngIf="!escondeBotones.fechas" #boton2 (click)="onClickFA()">Fecha más antigua</button>
-        <button *ngIf="!escondeBotones.volver" lgm-button3 #boton3 (click)="onClickV()">Volver</button>
+      <div *ngIf="cargadaRuta">
+        <button *ngIf="verBotones.fechas" #boton1 (click)="onClickFD()">Fecha más reciente</button>
+        <button *ngIf="verBotones.fechas" #boton2 (click)="onClickFA()">Fecha más antigua</button>
+        <button *ngIf="verBotones.volver" lgm-button3 #boton3 (click)="onClickV()">Volver</button>
     </div>
   </div>    
 </div>
-<!-- <router-outlet></router-outlet> -->

@@ -18,9 +18,10 @@ import { Location } from '@angular/common';
 })
 export class NavComponent implements OnInit {
   public bEstado: Informacion;
-  public escondeBotones: Botones;
+  public verBotones: Botones;
   public lanzamientos$: Observable<any>;
   public rutaActual: string;
+  public rutaCargada: boolean;
 
   @Input() public titulo: string;
   @Input() public version: string;
@@ -41,29 +42,42 @@ export class NavComponent implements OnInit {
   }
 
   cargarDatos() {
-    const e: Informacion = {
-      counter: 0,
-      message: ''
-    };
-    const b: Botones = {
-      fechas: true,
-      volver: true
-    };
+    this.rutaCargada = false;
+    const e: Informacion = { counter: 0 ,  message: '' };
     this.bEstado = e;
-    this.escondeBotones = b;
+
+    const b: Botones = { fechas: false , volver: false };
+    this.verBotones = b;
+
+    this.rutaCargada = true;
   }
 
   cargarObservables() {
+
+    this.lanzamientos$ = this.store.select('lanzamientos').pipe(
+      map(lan => {
+        if (lan.cargados) {
+          const es: Informacion = { counter: lan.lanzamientos.length , message: 'Estados: número de lanzamientos ' };
+          this.bEstado = es;
+
+          return lan.lanzamientos;
+        }
+      })
+    );
+
     this.store.select('ruta').subscribe(r => {
       if (r.cargada) {
         switch (r.nombre) {
         case 'estados':
           this.rutaActual = 'estados';
-          const be: Botones = {
-            fechas: true,
-            volver: true
-          };
-          this.escondeBotones = be;
+          const be: Botones = { fechas: false , volver: false };
+          this.verBotones = be;
+
+          const e: Informacion = { counter: 0 ,  message: 'Estados' };
+          this.bEstado = e;
+
+          this.rutaCargada = true;
+          console.log('ruta estados botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
           // this.store.select('estados').subscribe(est => { this.estados = est; });
           this.store.dispatch(new CargarLanzamientos(null));
           // this.estados = est.estados;
@@ -76,42 +90,30 @@ export class NavComponent implements OnInit {
           //         }
           //       })
           //     );
+
           break;
         case 'lanzamientos':
           this.rutaActual = 'lanzamientos';
-          const bl: Botones = {
-            fechas: true,
-            volver: true
-          };
-          this.escondeBotones = bl;
-          console.log('ruta lanzamientos');
+          const bl: Botones = { fechas: true , volver: true};
+          this.verBotones = bl;
+
+          this.rutaCargada = true;
+          console.log('ruta lanzamientos botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
           break;
         case 'lanzamiento':
           this.rutaActual = 'lanzamiento';
-          const bl2: Botones = {
-            fechas: false,
-            volver: true
-          };
-          this.escondeBotones = bl2;
-          console.log('ruta lanzamiento');
+          const bl2: Botones = { fechas: true , volver: false };
+          this.verBotones = bl2;
+
+          this.rutaCargada = true;
+          console.log('ruta lanzamiento botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
           break;
         }
       }
 
     });
 
-    this.lanzamientos$ = this.store.select('lanzamientos').pipe(
-      map(lan => {
-        if (lan.cargados) {
-          const es: Informacion = {
-            counter: lan.lanzamientos.length,
-            message: 'Estados: número de lanzamientos '
-          };
-          this.bEstado = es;
-          return lan.lanzamientos;
-        }
-      })
-    );
+    
   }
 
   onClickFD() {
