@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
@@ -6,6 +6,9 @@ import { GlobalState } from '../..';
 import { CargarEstados } from '../../reducers/estados/estados.actions';
 import { CargarRuta } from '../../reducers/rutas/rutas.actions';
 import { Ruta } from '../../interfaces/ruta';
+import { Subscription } from 'rxjs';
+import { CargarLanzamientos } from 'src/app/reducers/lanzamientos/lanzamientos.actions';
+
 
 @Component({
   selector: 'app-home',
@@ -13,10 +16,14 @@ import { Ruta } from '../../interfaces/ruta';
   styleUrls: ['./home.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public estados$: Observable<any>;
-  public informacion = { counter: 0, messaje: '' };
   public estados: any[];
+  public informacion = { counter: 0, messaje: '' };
+
+  public lanzamientos$: Observable<any>;
+  public lanzamientos: any[];
+  rutaSubscription: Subscription;
 
   constructor(
       private store: Store<GlobalState>
@@ -30,7 +37,11 @@ export class HomeComponent implements OnInit {
 
   private cargaDatos() {
     this.store.dispatch(new CargarEstados());
-    this.store.dispatch(new CargarRuta([0 , 'estados']));
+    // this.store.dispatch(new CargarRuta([0 , 'estados']));
+    // this.rutaSubscription = this.store.select('lanzamientos').subscribe( data => {
+    //   this.store.dispatch(new CargarRuta( data.lanzamientos.length + ' lanzamientos ' ));
+    // });
+    this.store.dispatch(new CargarLanzamientos( null ));
   }
 
   private cargaObservables() {
@@ -46,5 +57,24 @@ export class HomeComponent implements OnInit {
           })
         );
     });
+
+    this.store.select('lanzamientos').subscribe(lan => {
+      this.lanzamientos = lan.lanzamientos;
+      this.lanzamientos$ = this.store
+        .select('lanzamientos')
+        .pipe(
+          map(lan2 => {
+            if (lan2.cargados) {
+              this.store.dispatch(new CargarRuta( lan2.lanzamientos.length + ' lanzamientos ' ));
+              return lan2.lanzamientos;
+            }
+          })
+        );
+    });
+  }
+
+
+  ngOnDestroy() {
+    // this.rutaSubscription.unsubscribe();
   }
 }

@@ -10,9 +10,8 @@
       </div>      
   </div>   
 </div>
-<div lgm-counter>
-  <div>      
-      
+<!-- <div lgm-counter>
+  <div>            
       <h1>PRUEBAS {{bEstado?.message}} {{ bEstado?.counter }} </h1>
       <span></span>
       <div *ngIf="rutaCargada">
@@ -21,4 +20,10 @@
         <button *ngIf="verBotones.volver" lgm-button3 #boton3 (click)="onClickV()">Volver</button>        
     </div>
   </div>    
+</div> -->
+<div lgm-counter>
+    <div *ngIf="rutas$ | async as ruta">
+      <h1>{{ruta.mensaje}} </h1>
+      <span></span>
+    </div>
 </div>

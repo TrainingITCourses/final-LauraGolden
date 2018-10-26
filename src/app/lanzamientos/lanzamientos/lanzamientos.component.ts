@@ -18,6 +18,8 @@ export class LanzamientosComponent implements OnInit {
   public lanzamientos$: Observable<any>;
   private idEstado: any;
   private estadoSel: number;
+  public estados$: Observable<any>;
+  public estados: any[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,7 +36,7 @@ export class LanzamientosComponent implements OnInit {
     // Cogemos el id del estado para filtrar lanzamientos
     this.idEstado = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargarLanzamientos([this.idEstado]));
-    this.store.dispatch(new CargarRuta([this.idEstado , 'lanzamientos']));
+    this.store.dispatch(new CargarRuta('Estado: ' + this.idEstado ));
   }
 
   private cargaObservables() {
@@ -47,6 +49,21 @@ export class LanzamientosComponent implements OnInit {
         }
       })
     );
+
+    this.store.select('estados').subscribe(est => {
+      this.estados = est.estados;
+      this.estados$ = this.store
+        .select('estados')
+        .pipe(
+          map(est2 => {
+            if (est2.cargados) {
+              this.store.dispatch(new CargarRuta('Estado: ' + est2.estados[0].name ));
+              return est2.estados;
+            }
+          })
+        );
+    });
+
   }
 
   onClickV($event) {
