@@ -13,12 +13,12 @@
 <div lgm-counter>
   <div>      
       
-      <h1>{{bEstado?.message}} {{ bEstado?.counter }} </h1>      
+      <h1>PRUEBAS {{bEstado?.message}} {{ bEstado?.counter }} </h1>
       <span></span>
-      <div *ngIf="cargadaRuta">
+      <div *ngIf="rutaCargada">
         <button *ngIf="verBotones.fechas" #boton1 (click)="onClickFD()">Fecha más reciente</button>
         <button *ngIf="verBotones.fechas" #boton2 (click)="onClickFA()">Fecha más antigua</button>
-        <button *ngIf="verBotones.volver" lgm-button3 #boton3 (click)="onClickV()">Volver</button>
+        <button *ngIf="verBotones.volver" lgm-button3 #boton3 (click)="onClickV()">Volver</button>        
     </div>
   </div>    
 </div>

@@ -23,6 +23,7 @@ export class NavComponent implements OnInit {
   public rutaActual: string;
   public rutaCargada: boolean;
 
+
   @Input() public titulo: string;
   @Input() public version: string;
 
@@ -37,11 +38,6 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     console.log('app-nav_ngOnInit');
-    this.cargarObservables();
-    this.cargarDatos();
-  }
-
-  cargarDatos() {
     this.rutaCargada = false;
     const e: Informacion = { counter: 0 ,  message: '' };
     this.bEstado = e;
@@ -50,34 +46,50 @@ export class NavComponent implements OnInit {
     this.verBotones = b;
 
     this.rutaCargada = true;
+
+    this.cargarObservables();
+    // this.cargarDatos();
   }
 
-  cargarObservables() {
+  // cargarDatos() {
+  //   this.rutaCargada = false;
+  //   const e: Informacion = { counter: 0 ,  message: '' };
+  //   this.bEstado = e;
 
-    this.lanzamientos$ = this.store.select('lanzamientos').pipe(
+  //   const b: Botones = { fechas: false , volver: false };
+  //   this.verBotones = b;
+
+  //   this.rutaCargada = true;
+  // }
+
+  cargarObservables() {
+    let that = this;
+
+    that.lanzamientos$ = this.store.select('lanzamientos').pipe(
       map(lan => {
         if (lan.cargados) {
           const es: Informacion = { counter: lan.lanzamientos.length , message: 'Estados: número de lanzamientos ' };
-          this.bEstado = es;
+          that.bEstado = es;
 
           return lan.lanzamientos;
         }
       })
     );
 
-    this.store.select('ruta').subscribe(r => {
+
+    that.store.select('ruta').subscribe(r => {
       if (r.cargada) {
         switch (r.nombre) {
         case 'estados':
-          this.rutaActual = 'estados';
+          that.rutaActual = 'estados';
           const be: Botones = { fechas: false , volver: false };
-          this.verBotones = be;
+          that.verBotones = be;
 
           const e: Informacion = { counter: 0 ,  message: 'Estados' };
-          this.bEstado = e;
+          that.bEstado = e;
+          that.rutaCargada = true;
 
-          this.rutaCargada = true;
-          console.log('ruta estados botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
+          // console.log('ruta estados botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
           // this.store.select('estados').subscribe(est => { this.estados = est; });
           this.store.dispatch(new CargarLanzamientos(null));
           // this.estados = est.estados;
@@ -93,27 +105,30 @@ export class NavComponent implements OnInit {
 
           break;
         case 'lanzamientos':
-          this.rutaActual = 'lanzamientos';
+          // console.log('ruta estados botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
+          that.rutaActual = 'lanzamientos';
           const bl: Botones = { fechas: true , volver: true};
-          this.verBotones = bl;
+          that.verBotones = bl;
 
-          this.rutaCargada = true;
-          console.log('ruta lanzamientos botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
+          that.rutaCargada = true;
+          // console.log('ruta lanzamientos botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
           break;
         case 'lanzamiento':
-          this.rutaActual = 'lanzamiento';
-          const bl2: Botones = { fechas: true , volver: false };
-          this.verBotones = bl2;
 
-          this.rutaCargada = true;
-          console.log('ruta lanzamiento botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
+          that.rutaActual = 'lanzamiento';
+          const bl2: Botones = { fechas: false , volver: true };
+          that.verBotones = bl2;
+
+          that.rutaCargada = true;
+
+          // console.log('ruta lanzamiento botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
           break;
         }
       }
-
     });
-
-    
+    if (this.rutaCargada) {
+      console.log('ruta botones fechas:' + this.verBotones.fechas + ' volver:' + this.verBotones.volver);
+    }
   }
 
   onClickFD() {
