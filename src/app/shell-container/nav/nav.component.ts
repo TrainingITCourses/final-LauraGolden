@@ -19,11 +19,11 @@ import { Location } from '@angular/common';
 export class NavComponent implements OnInit, OnDestroy {
   public bEstado: Informacion;
   public verBotones: Botones;
-  public lanzamientos$: Observable<any>;
-  public rutaActual: string;
-  public rutaCargada: boolean;
+  // public lanzamientos$: Observable<any>;
+  // public rutaActual: string;
+  // public rutaCargada: boolean;
   public rutas$: Observable<any>;
-  rutaSubscription: Subscription;
+  // rutaSubscription: Subscription;
 
 
   @Input() public titulo: string;
@@ -40,15 +40,14 @@ export class NavComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('app-nav_ngOnInit');
-    this.rutas$ = this.store
-        .select('ruta')
-        .pipe(
-          map(r => {
-            if (r.cargada) {
-              return r;
-            }
-          })
-        );
+
+    this.rutas$ = this.store.select('ruta').pipe(
+      map(r => {
+        if (r.cargada) {
+          return r;
+        }
+      })
+    );
 
     // this.rutaSubscription = this.store.select('ruta').subscribe( data => {
     //   // this.store.dispatch(new CargarRuta( data.lanzamientos.length + ' lanzamientos ' ));

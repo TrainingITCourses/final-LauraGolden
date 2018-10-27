@@ -10,20 +10,12 @@
       </div>      
   </div>   
 </div>
-<!-- <div lgm-counter>
-  <div>            
-      <h1>PRUEBAS {{bEstado?.message}} {{ bEstado?.counter }} </h1>
-      <span></span>
-      <div *ngIf="rutaCargada">
-        <button *ngIf="verBotones.fechas" #boton1 (click)="onClickFD()">Fecha más reciente</button>
-        <button *ngIf="verBotones.fechas" #boton2 (click)="onClickFA()">Fecha más antigua</button>
-        <button *ngIf="verBotones.volver" lgm-button3 #boton3 (click)="onClickV()">Volver</button>        
-    </div>
-  </div>    
-</div> -->
 <div lgm-counter>
     <div *ngIf="rutas$ | async as ruta">
-      <h1>{{ruta.mensaje}} </h1>
+      <h1>{{ruta?.mensaje}} </h1>
       <span></span>
+      <button *ngIf="ruta?.botonFechas" #boton1 (click)="onClickFD()">Fecha más reciente</button>
+      <button *ngIf="ruta?.botonFechas" #boton2 (click)="onClickFA()">Fecha más antigua</button>
+      <button *ngIf="ruta?.botonVolver" lgm-button3 #boton3 (click)="onClickV()">Volver</button>        
     </div>
 </div>

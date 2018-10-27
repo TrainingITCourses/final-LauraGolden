@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
 import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
+import { CargaEstado } from '../../reducers/estado/estado.actions';
 
 
 @Component({
@@ -18,8 +19,7 @@ export class LanzamientosComponent implements OnInit {
   public lanzamientos$: Observable<any>;
   private idEstado: any;
   private estadoSel: number;
-  public estados$: Observable<any>;
-  public estados: any[];
+  public estado$: Observable<any>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,8 +35,9 @@ export class LanzamientosComponent implements OnInit {
   private cargaDatos() {
     // Cogemos el id del estado para filtrar lanzamientos
     this.idEstado = this.activatedRoute.snapshot.params['id'];
+    this.store.dispatch(new CargaEstado([this.idEstado]));
     this.store.dispatch(new CargarLanzamientos([this.idEstado]));
-    this.store.dispatch(new CargarRuta('Estado: ' + this.idEstado ));
+    this.store.dispatch(new CargarRuta(['Estado ' + this.idEstado , true, true]));
   }
 
   private cargaObservables() {
@@ -50,20 +51,14 @@ export class LanzamientosComponent implements OnInit {
       })
     );
 
-    this.store.select('estados').subscribe(est => {
-      this.estados = est.estados;
-      this.estados$ = this.store
-        .select('estados')
-        .pipe(
-          map(est2 => {
-            if (est2.cargados) {
-              this.store.dispatch(new CargarRuta('Estado: ' + est2.estados[0].name ));
-              return est2.estados;
-            }
-          })
-        );
-    });
-
+    this.estado$ = this.store.select('estado').pipe(
+      map(est => {
+        if (est.cargado) {
+          this.store.dispatch(new CargarRuta(['Estado: ' + est.estado[0].name, true, true ]));
+          return est.estado[0];
+        }
+      })
+    );
   }
 
   onClickV($event) {

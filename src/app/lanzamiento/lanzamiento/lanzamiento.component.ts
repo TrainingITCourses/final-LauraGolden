@@ -33,7 +33,7 @@ export class LanzamientoComponent implements OnInit {
   private cargaDatos() {
     this.idLanzamiento = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargarLanzamiento([this.idLanzamiento]));
-    this.store.dispatch(new CargarRuta([this.idLanzamiento , 'lanzamiento']));
+    this.store.dispatch(new CargarRuta(['Lanzamiento ' + this.idLanzamiento, true, false ]));
   }
 
   private cargaObservables() {

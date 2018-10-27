@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { LanzamientosEffects } from './reducers/lanzamientos/lanzamientos.effects';
 import { EstadosEffects } from './reducers/estados/estados.effects';
 import { LanzamientoEffects } from './reducers/lanzamiento/lanzamiento.effects';
+import { EstadoEffects } from './reducers/estado/estado.effects';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ShellContainerComponent } from './shell-container/shell-container/shell-container.component';
 import { NavComponent } from './shell-container/nav/nav.component';
@@ -33,7 +34,7 @@ import { AppRoutingModule } from './shell-container/app-routing.module';
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
-    EffectsModule.forRoot([ EstadosEffects, LanzamientosEffects, LanzamientoEffects]),
+    EffectsModule.forRoot([ EstadosEffects, LanzamientosEffects, LanzamientoEffects, EstadoEffects]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ApiService],

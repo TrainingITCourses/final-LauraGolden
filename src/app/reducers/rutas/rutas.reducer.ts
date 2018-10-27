@@ -7,22 +7,26 @@ export interface RutasState {
   // nombre: string;
   cargada: boolean;
   mensaje: string;
+  botonVolver: boolean;
+  botonFechas: boolean;
 }
 
 export const initialState: RutasState = {
   // idRuta: 0 ,
   // nombre: '',
   cargada: false,
-  mensaje: ''
+  mensaje: '',
+  botonVolver: false,
+  botonFechas: false
 };
 
 export function reducer(state = initialState, action: RutasActions): RutasState {
   switch (action.type) {
     case RutasActionTypes.CargarRuta:
       state.cargada = true;
-      // state.idRuta = action.payload[0];
-      // state.nombre = action.payload[1];
-      state.mensaje = action.payload;
+      state.mensaje = action.payload[0];
+      state.botonVolver = action.payload[1];
+      state.botonFechas = action.payload[2];
       return { ...state };
     default:
       return state;

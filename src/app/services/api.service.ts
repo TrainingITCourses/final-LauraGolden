@@ -14,6 +14,24 @@ export class ApiService {
       .get('../../assets/launchstatus.json')
       .pipe(map((res: any) => res.types))
 
+  public getStateTypes$ (valor): Observable<any> {
+    if (valor !== null) {
+      return this.httpC.get('../../assets/launchstatus.json').pipe(
+        map((res: any) =>
+          res.types
+            .filter(est => {
+              return (est.id === Number(valor));
+            })
+            .map(estado => {
+              return estado;
+            })
+        )
+      );
+    } else {
+        return of([]);
+    }
+  }
+
   public getFilterLaunches(valor): Observable<any> {
     if (valor !== null) {
       return this.httpC.get('../../assets/launchlibrary.json').pipe(
