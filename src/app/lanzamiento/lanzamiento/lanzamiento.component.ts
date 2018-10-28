@@ -39,7 +39,7 @@ export class LanzamientoComponent implements OnInit {
     this.lanzamiento$ = this.store.select('lanzamiento').pipe(
       map(Lan => {
         if (Lan.cargado) {
-          // Ya se que no es la solución (con más tiempo buscaría otra), pero si no se me quedaba bloqueado
+          // Ya se que no es la solución más idónea (con más tiempo buscaría otra), pero si no se me quedaba bloqueado
           if (_this.lanzamiento === undefined ) {
             this.store.dispatch(new CargarRuta(['Lanzamiento: ' + Lan.lanzamiento[0].name , true, false , 'Lanzamiento' ]));
           } else if ( _this.lanzamiento.id !== Lan.lanzamiento[0].id) {

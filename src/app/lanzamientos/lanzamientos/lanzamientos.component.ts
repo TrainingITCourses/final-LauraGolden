@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
 import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
 import { CargaEstado } from '../../reducers/estado/estado.actions';
-import { LanzamientosEffects } from 'src/app/reducers/lanzamientos/lanzamientos.effects';
 
 
 @Component({
@@ -21,53 +20,64 @@ export class LanzamientosComponent implements OnInit {
   private idEstado: any;
   public estadoSel: number;
   public estado$: Observable<any>;
+  private estadoActual: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<GlobalState>,
-    private router: Router,
-    private eLanzamientos: LanzamientosEffects,
   ) { }
 
   ngOnInit() {
+    this.idEstado = this.activatedRoute.snapshot.params['id'];
     this.cargaObservables();
     this.cargaDatos();
   }
 
   private cargaDatos() {
     // Cogemos el id del estado para filtrar lanzamientos
-    this.idEstado = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargaEstado([this.idEstado]));
     this.store.dispatch(new CargarLanzamientos([this.idEstado, 2])); // Por defecto se ordena siempre Desc
-    this.store.dispatch(new CargarRuta(['', true, true, this.idEstado, 'Lanzamientos' ]));
   }
 
   private cargaObservables() {
+    let _this = this;
+
     this.lanzamientos$ = this.store.select('lanzamientos').pipe(
       map(Lan => {
         if (Lan.cargados) {
-          const idE = this.idEstado;
-          this.estadoSel = idE;
+          const idE = _this.idEstado;
+          _this.estadoSel = idE;
           return Lan.lanzamientos;
         }
       })
     );
 
-
-    // this.eLanzamientos.Carga$
-    //     .subscribe(res  => {
-    //       if (res.payload.length > 0) {
-    //         this.store.dispatch(new CargaEstado([this.idEstado]));
-    //       }
-    //     });
-
-    this.estado$ = this.store.select('estado').pipe(
-      map(est => {
-        if (est.cargado) {
-          this.store.dispatch(new CargarRuta(['Estado: ' + est.estado[0].name, true, true, this.idEstado, 'Lanzamientos' ]));
-          return est.estado[0];
+    this.store.subscribe(
+      st => {
+        const estado = st.estados.estados.filter(estActual => estActual.id === Number(_this.idEstado));
+        if (estado.length > 0) {
+          // Ya se que no es la solución más idónea (con más tiempo buscaría otra), pero si no se me quedaba bloqueado
+          if (_this.estadoActual === undefined) {
+            _this.estadoActual = estado[0].id;
+            this.store.dispatch(
+                new CargarRuta([
+                    'Estado: ' + estado[0].name + ' - ' + estado[0].description ,
+                    true, // ver boton volver
+                    true, // ver botones fechas
+                    _this.idEstado,
+                    'Lanzamientos' ]));
+          } else if (estado[0].id !== _this.estadoActual) {
+            _this.estadoActual = estado[0].id;
+            this.store.dispatch(
+                new CargarRuta([
+                  'Estado: ' + estado[0].name + ' - ' + estado[0].description ,
+                  true,
+                  true,
+                   _this.idEstado,
+                   'Lanzamientos' ]));
+          }
         }
-      })
+      }
     );
   }
 }
