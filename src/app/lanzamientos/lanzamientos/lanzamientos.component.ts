@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
 import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
 import { CargaEstado } from '../../reducers/estado/estado.actions';
+import { LanzamientosEffects } from 'src/app/reducers/lanzamientos/lanzamientos.effects';
 
 
 @Component({
@@ -18,13 +19,14 @@ import { CargaEstado } from '../../reducers/estado/estado.actions';
 export class LanzamientosComponent implements OnInit {
   public lanzamientos$: Observable<any>;
   private idEstado: any;
-  private estadoSel: number;
+  public estadoSel: number;
   public estado$: Observable<any>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<GlobalState>,
-    private router: Router
+    private router: Router,
+    private eLanzamientos: LanzamientosEffects,
   ) { }
 
   ngOnInit() {
@@ -37,7 +39,8 @@ export class LanzamientosComponent implements OnInit {
     this.idEstado = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargaEstado([this.idEstado]));
     this.store.dispatch(new CargarLanzamientos([this.idEstado, 2])); // Por defecto se ordena siempre Desc
-    this.store.dispatch(new CargarRuta(['Estado ' + this.idEstado , true, true]));
+    // this.store.dispatch(new CargarRuta(['Estado ' + this.idEstado , true, true, this.idEstado]));
+    this.store.dispatch(new CargarRuta(['', true, true, this.idEstado]));
   }
 
   private cargaObservables() {
@@ -51,23 +54,21 @@ export class LanzamientosComponent implements OnInit {
       })
     );
 
+
+    // this.eLanzamientos.Carga$
+    //     .subscribe(res  => {
+    //       if (res.payload.length > 0) {
+    //         this.store.dispatch(new CargaEstado([this.idEstado]));
+    //       }
+    //     });
+
     this.estado$ = this.store.select('estado').pipe(
       map(est => {
         if (est.cargado) {
-          this.store.dispatch(new CargarRuta(['Estado: ' + est.estado[0].name, true, true ]));
+          this.store.dispatch(new CargarRuta(['Estado: ' + est.estado[0].name, true, true, this.idEstado ]));
           return est.estado[0];
         }
       })
     );
-  }
-
-  onClickV($event) {
-    this.router.navigate( ['/'] );
-  }
-  onClickFechaA() {
-    console.log('Ordenar fecha Ascendiente (menos reciente)');
-  }
-  onClickFechaD() {
-    console.log('Ordenar fecha descendiente (más reciente)');
   }
 }

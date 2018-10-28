@@ -10,9 +10,11 @@ import { SwUpdate } from '@angular/service-worker';
 })
 export class ShellContainerComponent implements OnInit {
   @Input() public titulo: string;
+  @Input() public notificado: boolean;
+  subscripcionCargada: any;
 
   constructor(
-    private swUpdate: SwUpdate
+    private swUpdate: SwUpdate,
   ) {}
 
   ngOnInit() {

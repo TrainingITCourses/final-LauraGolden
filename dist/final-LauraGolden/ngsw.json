@@ -1,0 +1,108 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/5.afaba443cd6782b0c7da.js",
+        "/6.b70d6461fe5c029b3d40.js",
+        "/7.d61a04498d6104d971ed.js",
+        "/common.607ba5b49ea17f00c720.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main.4765b73d4fa4fedbabff.js",
+        "/polyfills.c993a03ccff158d8233d.js",
+        "/runtime.02770db38f3045fbaa5c.js",
+        "/styles.b7770f1f2ee9d69254e5.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/images/lan_01.jpg",
+        "/assets/images/lan_02.jpg"
+      ],
+      "patterns": [
+        "https:\\/\\/stackpath\\.bootstrapcdn\\.com\\/bootstrap\\/4\\.1\\.3\\/css\\/bootstrap\\.min\\.css",
+        "https:\\/\\/stackpath\\.bootstrapcdn\\.com\\/bootstrap\\/4\\.1\\.3\\/js\\/bootstrap\\.min\\.js"
+      ]
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "cache-first",
+      "patterns": [
+        "http:\\/\\/127\\.0\\.0\\.1:8080\\/assets\\/launchstatus\\.json"
+      ],
+      "strategy": "performance",
+      "maxSize": 10,
+      "maxAge": 604800000,
+      "version": 1
+    },
+    {
+      "name": "api-first",
+      "patterns": [
+        "http:\\/\\/127\\.0\\.0\\.1:8080\\/assets\\/launchlibrary\\.json"
+      ],
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": 86400000,
+      "timeoutMs": 5000,
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/5.afaba443cd6782b0c7da.js": "6173d99ed6b8c754e6fa6d925bcbafddbf4cc3e2",
+    "/6.b70d6461fe5c029b3d40.js": "e74c8fe076cd45dd37b381c8facca541ca8bbe4a",
+    "/7.d61a04498d6104d971ed.js": "937c9a84a2c11c2f4f632d3f3c464d586b99a8a1",
+    "/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/assets/images/lan_01.jpg": "f643950563d095ff0675670568927d8e5e4ab6e7",
+    "/assets/images/lan_02.jpg": "bdf64782a10080b4d9dcc915a58e40441797759a",
+    "/common.607ba5b49ea17f00c720.js": "be61b596cac951055f84e4fc85ea8a74376e76d1",
+    "/favicon.ico": "a923915cece9dcdd436ab93fdec665b4efe976d2",
+    "/index.html": "77d3d4342383486f6be9fb5683d9a0aff1c0a5cb",
+    "/main.4765b73d4fa4fedbabff.js": "442e3c7a1c8f8775e41b24a325bddfa29baa1b17",
+    "/polyfills.c993a03ccff158d8233d.js": "986b31ad3b6ecab32e5cd534df2ec6f73ae7efa4",
+    "/runtime.02770db38f3045fbaa5c.js": "1de68deb0046b918365e19292cd8ae5d6c1b0a59",
+    "/styles.b7770f1f2ee9d69254e5.css": "83c3f71c6dc5ea532ff97e93e55d3e93a0f14533"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

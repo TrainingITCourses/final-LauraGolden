@@ -2,10 +2,9 @@ import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { GlobalState } from '../..';
-import { Informacion } from '../../interfaces/informacion';
-// import { SwUpdate } from '@angular/service-worker';
+import { SwUpdate } from '@angular/service-worker';
 import { Botones } from '../../interfaces/botones';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
 import { Location } from '@angular/common';
@@ -16,10 +15,9 @@ import { RutasState } from 'src/app/reducers/rutas/rutas.reducer';
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavComponent implements OnInit {
-  public bEstado: Informacion;
   public verBotones: Botones;
   public rutas$: Observable<any>;
   public ruta: RutasState;
@@ -31,9 +29,8 @@ export class NavComponent implements OnInit {
     private route: Router,
     private activatedRoute: ActivatedRoute,
     private store: Store<GlobalState>,
-    private location: Location
-
-    // private swUpdate: SwUpdate
+    private location: Location,
+    private swUpdate: SwUpdate
     ) {}
 
   ngOnInit() {
@@ -42,7 +39,6 @@ export class NavComponent implements OnInit {
     this.rutas$ = this.store.select('ruta').pipe(
       map(r => {
         if (r.cargada) {
-          this.ruta = r;
           return r;
         }
       })
@@ -69,31 +65,31 @@ export class NavComponent implements OnInit {
 
 
   onClick() {
-    // this.checkForUpdate();
+    this.checkForUpdate();
   }
 
-  // checkForUpdate() {
-  //   console.log('[App] checkForUpdate started');
-  //   this.swUpdate.checkForUpdate()
-  //     .then(() => {
-  //       console.log('[App] checkForUpdate completed');
-  //       this.activateUpdate();
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //   });
-  // }
+  checkForUpdate() {
+    console.log('[App] checkForUpdate started');
+    this.swUpdate.checkForUpdate()
+      .then(() => {
+        console.log('[App] checkForUpdate completed');
+        this.activateUpdate();
+      })
+      .catch(err => {
+        console.error(err);
+    });
+  }
 
-  // activateUpdate() {
-  //   console.log('[App] activateUpdate started');
-  //   this.swUpdate.activateUpdate()
-  //     .then(() => {
-  //       console.log('[App] activateUpdate completed');
-  //         window.location.reload();
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //     });
-  // }
+  activateUpdate() {
+    console.log('[App] activateUpdate started');
+    this.swUpdate.activateUpdate()
+      .then(() => {
+        console.log('[App] activateUpdate completed');
+          window.location.reload();
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
 }
