@@ -5,7 +5,7 @@
     <ul class = "listas">
     <li *ngFor="let lanzamiento of lanzamientos;"        
         (click)="onLanzamientoSeleccionado(lanzamiento)">
-        <span lgm-cuadrado>■</span>{{ lanzamiento.name }}  |  {{lanzamiento.isostart | date: 'dd/MM/yyyy'}}
+        <span lgm-cuadrado>■</span>{{ lanzamiento.name }}  |  <strong>{{lanzamiento.isostart | date: 'dd/MM/yyyy'}}</strong>
     </li>
     </ul>
 </div>
