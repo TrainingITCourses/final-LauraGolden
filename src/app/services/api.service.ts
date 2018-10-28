@@ -4,6 +4,8 @@ import { map, tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { GlobalState } from '..';
+import { ModoOrden } from '../interfaces/modoOrden';
+import { Lanzamiento } from '../interfaces/lanzamiento';
 
 @Injectable()
 export class ApiService {
@@ -32,7 +34,7 @@ export class ApiService {
     }
   }
 
-  public getFilterLaunches(valor): Observable<any> {
+  public getFilterLaunches(valor, orden: ModoOrden): Observable<any> {
     if (valor !== null) {
       return this.httpC.get('../../assets/launchlibrary.json').pipe(
         map((res: any) =>
@@ -43,6 +45,7 @@ export class ApiService {
             .map(lanzamiento => {
               return lanzamiento;
             })
+            .sort(this.ordenar(orden))
         )
       );
     } else {
@@ -64,5 +67,14 @@ export class ApiService {
 
   private filtraEstados(lanzamiento: any, valor: number): boolean {
     return (lanzamiento.status === valor);
+  }
+
+  private ordenar(orden: ModoOrden) {
+    const tipo: number = orden === ModoOrden.ascendente  ? 1 : -1;
+    return function(a: any, b: any) {
+       if (a.isostart < b.isostart) { return -1 * tipo; }
+       if (a.isostart > b.isostart) { return 1 * tipo; }
+       return 0;
+    };
   }
 }

@@ -14,7 +14,7 @@ export class LanzamientosEffects {
     .pipe(
       mergeMap((action: CargarLanzamientos) =>
         this.apiService
-          .getFilterLaunches(action.payload)
+          .getFilterLaunches(action.payload[0], action.payload[1])
           .pipe(map(lanFiltrados => new LanzamientosCargados(lanFiltrados)),
              catchError( err => of(new LanzamientosNoCargados('Los lanzamientos no han podido filtrarse')))
       ))

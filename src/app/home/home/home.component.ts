@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     //   this.store.dispatch(new CargarRuta( data.lanzamientos.length + ' lanzamientos ' ));
     // });
     this.store.dispatch(new CargarRuta(['Lanzamientos XXX' , false, false]));
-    this.store.dispatch(new CargarLanzamientos( null ));
+    this.store.dispatch(new CargarLanzamientos([ null , 2 ]));
 
   }
 

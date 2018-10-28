@@ -8,15 +8,10 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output
 })
 export class LaunchesCardComponent implements OnInit {
   @Input() public lanzamiento: any = [];
-  @Output() public botonVolver = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
     console.log('Launches-Card_ngOnInit');
-  }
-
-  onClickV() {
-    this.botonVolver.emit('lanzamientos');
   }
 }

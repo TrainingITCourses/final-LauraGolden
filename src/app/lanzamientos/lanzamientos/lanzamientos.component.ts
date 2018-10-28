@@ -36,7 +36,7 @@ export class LanzamientosComponent implements OnInit {
     // Cogemos el id del estado para filtrar lanzamientos
     this.idEstado = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargaEstado([this.idEstado]));
-    this.store.dispatch(new CargarLanzamientos([this.idEstado]));
+    this.store.dispatch(new CargarLanzamientos([this.idEstado, 2])); // Por defecto se ordena siempre Desc
     this.store.dispatch(new CargarRuta(['Estado ' + this.idEstado , true, true]));
   }
 

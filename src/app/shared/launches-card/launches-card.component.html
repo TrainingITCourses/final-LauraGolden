@@ -1,9 +1,4 @@
-<div lgm-launches-card *ngIf="lanzamiento!=null">    
-    <!-- <app-counter 
-        [counter] ="{message: 'Lanzamiento '}"
-        [escondeBotones]="{fechas: true, volver: false}"
-        (bVolver)= "onClickV()">
-    </app-counter> -->
+<div lgm-launches-card *ngIf="lanzamiento!=null">        
     <div lgm-lanzamiento>
         <h1>{{lanzamiento.name}}</h1>
           <h3>Fecha lanzamiento: {{lanzamiento.isostart | date: 'dd/MM/yyyy'}}</h3>          

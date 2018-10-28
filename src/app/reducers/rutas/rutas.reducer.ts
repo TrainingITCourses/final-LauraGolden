@@ -9,6 +9,7 @@ export interface RutasState {
   mensaje: string;
   botonVolver: boolean;
   botonFechas: boolean;
+  idEstado: number;
 }
 
 export const initialState: RutasState = {
@@ -17,7 +18,8 @@ export const initialState: RutasState = {
   cargada: false,
   mensaje: '',
   botonVolver: false,
-  botonFechas: false
+  botonFechas: false,
+  idEstado: 0,
 };
 
 export function reducer(state = initialState, action: RutasActions): RutasState {
@@ -27,6 +29,7 @@ export function reducer(state = initialState, action: RutasActions): RutasState 
       state.mensaje = action.payload[0];
       state.botonVolver = action.payload[1];
       state.botonFechas = action.payload[2];
+      state.idEstado = action.payload[3];
       return { ...state };
     default:
       return state;

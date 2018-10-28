@@ -11,9 +11,6 @@ import { Router } from '@angular/router';
 export class LaunchesListComponent implements OnInit {
   @Input() public lanzamientos: any[];
   @Input() public estadoSel: number;
-  @Output() public botonVolver = new EventEmitter<any>();
-  @Output() public botonFechaA = new EventEmitter<any>();
-  @Output() public botonFechaD = new EventEmitter<any>();
 
   constructor(private router: Router) {}
 
@@ -24,15 +21,5 @@ export class LaunchesListComponent implements OnInit {
   onLanzamientoSeleccionado(lan: Lanzamiento) {
     // lanzamos el detalle de un lanzamiento seleccionado
     this.router.navigate( ['/lanzamiento', lan.id ] );
-  }
-
-  onClickV() {
-    this.botonVolver.emit();
-  }
-  onClickFechaA() {
-    this.botonFechaA.emit();
-  }
-  onClickFechaD() {
-    this.botonFechaD.emit();
   }
 }
