@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
 import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
-import { CargaEstado } from '../../reducers/estado/estado.actions';
+// import { CargaEstado } from '../../reducers/estado/estado.actions';
 
 
 @Component({
@@ -35,7 +35,7 @@ export class LanzamientosComponent implements OnInit {
 
   private cargaDatos() {
     // Cogemos el id del estado para filtrar lanzamientos
-    this.store.dispatch(new CargaEstado([this.idEstado]));
+    // this.store.dispatch(new CargaEstado([this.idEstado]));
     this.store.dispatch(new CargarLanzamientos([this.idEstado, 2])); // Por defecto se ordena siempre Desc
   }
 
