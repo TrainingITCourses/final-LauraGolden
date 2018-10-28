@@ -39,8 +39,7 @@ export class LanzamientosComponent implements OnInit {
     this.idEstado = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargaEstado([this.idEstado]));
     this.store.dispatch(new CargarLanzamientos([this.idEstado, 2])); // Por defecto se ordena siempre Desc
-    // this.store.dispatch(new CargarRuta(['Estado ' + this.idEstado , true, true, this.idEstado]));
-    this.store.dispatch(new CargarRuta(['', true, true, this.idEstado]));
+    this.store.dispatch(new CargarRuta(['', true, true, this.idEstado, 'Lanzamientos' ]));
   }
 
   private cargaObservables() {
@@ -65,7 +64,7 @@ export class LanzamientosComponent implements OnInit {
     this.estado$ = this.store.select('estado').pipe(
       map(est => {
         if (est.cargado) {
-          this.store.dispatch(new CargarRuta(['Estado: ' + est.estado[0].name, true, true, this.idEstado ]));
+          this.store.dispatch(new CargarRuta(['Estado: ' + est.estado[0].name, true, true, this.idEstado, 'Lanzamientos' ]));
           return est.estado[0];
         }
       })

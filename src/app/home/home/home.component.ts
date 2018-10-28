@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
@@ -14,7 +14,7 @@ import { CargarLanzamientos } from 'src/app/reducers/lanzamientos/lanzamientos.a
   styleUrls: ['./home.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public estados$: Observable<any>;
   private subscripcionEstados: any;
   private subscripcionLanzamientos: any;
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   private cargaDatos() {
     this.store.dispatch(new CargarEstados());
     this.store.dispatch(new CargarLanzamientos([ null , 2 ]));
-    this.store.dispatch(new CargarRuta(['' , false, false, 0]));
+    this.store.dispatch(new CargarRuta(['' , false, false, 0, 'Estados' ]));
   }
 
   private cargaObservables() {
@@ -49,30 +49,24 @@ export class HomeComponent implements OnInit {
         );
     });
 
-    this.subscripcionLanzamientos = this.store.select('lanzamientos').subscribe(lan => {
+    let _this = this;
+    _this.subscripcionLanzamientos = this.store.select('lanzamientos').subscribe(lan => {
       if (lan.cargados) {
         if (lan.lanzamientos.length > 0) {
           // Quitamos la subscripción porque ya tenemos la información
-          if (this.subscripcionLanzamientos) {
-            this.subscripcionLanzamientos.unsubscribe();
-            return this.store.dispatch(new CargarRuta([ 'Estados : Lanzamientos cargados ' + lan.lanzamientos.length , false, false, 0]));
+          if (_this.subscripcionLanzamientos) {
+            _this.subscripcionLanzamientos.unsubscribe();
+            return this.store.dispatch(
+                       new CargarRuta([ 'Estados : Lanzamientos cargados ' + lan.lanzamientos.length , false, false, 0, 'Estados' ]));
           }
         }
       }
     });
+  }
 
 
-
-
-    this.store.subscribe((s: any) => {
-      console.log(s);
-      if (s.lanzamientos.length > 0) {
-        console.log(s);
-      }
-    });
-
-
-
-
+  ngOnDestroy() {
+    this.subscripcionLanzamientos.unsubscribe();
+    this.subscripcionEstados.unsubscribe();
   }
 }

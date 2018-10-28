@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { GlobalState } from '../..';
 import { SwUpdate } from '@angular/service-worker';
@@ -15,7 +14,7 @@ import { RutasState } from 'src/app/reducers/rutas/rutas.reducer';
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavComponent implements OnInit {
   public verBotones: Botones;
@@ -26,8 +25,6 @@ export class NavComponent implements OnInit {
   @Input() public version: string;
 
   constructor(
-    private route: Router,
-    private activatedRoute: ActivatedRoute,
     private store: Store<GlobalState>,
     private location: Location,
     private swUpdate: SwUpdate
@@ -39,6 +36,7 @@ export class NavComponent implements OnInit {
     this.rutas$ = this.store.select('ruta').pipe(
       map(r => {
         if (r.cargada) {
+          this.ruta = r;
           return r;
         }
       })
@@ -60,6 +58,9 @@ export class NavComponent implements OnInit {
   }
 
   onClickV() {
+    if (this.ruta.actual === 'Lanzamientos') {
+      this.store.dispatch(new CargarLanzamientos([ null , 2 ]));
+    }
     this.location.back();
   }
 

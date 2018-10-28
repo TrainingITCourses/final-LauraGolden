@@ -4,8 +4,7 @@ import { GlobalState } from '../..';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargarLanzamiento } from '../../reducers/lanzamiento/lanzamiento.actions';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
 
 @Component({
@@ -17,11 +16,11 @@ import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
 export class LanzamientoComponent implements OnInit {
   public lanzamiento$: Observable<any>;
   private idLanzamiento: number;
+  private lanzamiento: any;
+
   constructor(
       private store: Store<GlobalState>,
       private activatedRoute: ActivatedRoute,
-      private router: Router,
-      private location: Location
       ) { }
 
   ngOnInit() {
@@ -33,21 +32,23 @@ export class LanzamientoComponent implements OnInit {
   private cargaDatos() {
     this.idLanzamiento = this.activatedRoute.snapshot.params['id'];
     this.store.dispatch(new CargarLanzamiento([this.idLanzamiento]));
-    this.store.dispatch(new CargarRuta(['Lanzamiento ' + this.idLanzamiento, true, false ]));
   }
 
   private cargaObservables() {
+    let _this = this;
     this.lanzamiento$ = this.store.select('lanzamiento').pipe(
       map(Lan => {
         if (Lan.cargado) {
-          // this.store.dispatch(new CargarRuta(['Lanzamiento ' + Lan.lanzamiento[0].name , true, false ]));
+          // Ya se que no es la solución (con más tiempo buscaría otra), pero si no se me quedaba bloqueado
+          if (_this.lanzamiento === undefined ) {
+            this.store.dispatch(new CargarRuta(['Lanzamiento: ' + Lan.lanzamiento[0].name , true, false , 'Lanzamiento' ]));
+          } else if ( _this.lanzamiento.id !== Lan.lanzamiento[0].id) {
+            this.store.dispatch(new CargarRuta(['Lanzamiento: ' + Lan.lanzamiento[0].name , true, false , 'Lanzamiento' ]));
+          }
+          _this.lanzamiento  = Lan.lanzamiento[0];
           return Lan.lanzamiento[0];
         }
       })
     );
   }
-
-  onClickV($event) {
-    this.location.back();
-  }
-}
+ }

@@ -10,6 +10,7 @@ export interface RutasState {
   botonVolver: boolean;
   botonFechas: boolean;
   idEstado: number;
+  actual: string;
 }
 
 export const initialState: RutasState = {
@@ -20,6 +21,7 @@ export const initialState: RutasState = {
   botonVolver: false,
   botonFechas: false,
   idEstado: 0,
+  actual: '',
 };
 
 export function reducer(state = initialState, action: RutasActions): RutasState {
@@ -30,6 +32,7 @@ export function reducer(state = initialState, action: RutasActions): RutasState 
       state.botonVolver = action.payload[1];
       state.botonFechas = action.payload[2];
       state.idEstado = action.payload[3];
+      state.actual = action.payload[4];
       return { ...state };
     default:
       return state;
