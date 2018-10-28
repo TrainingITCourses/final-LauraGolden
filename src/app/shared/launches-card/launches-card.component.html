@@ -6,5 +6,12 @@
     </app-counter> -->
     <div lgm-lanzamiento>
         <h1>{{lanzamiento.name}}</h1>
+          <h3>Fecha lanzamiento: {{lanzamiento.isostart | date: 'dd/MM/yyyy'}}</h3>          
+          <h3>Misiones:</h3>
+          <div *ngFor="let mision of lanzamiento.missions">
+            <strong>{{ mision.name }}</strong>
+            <p>{{ mision.description }}</p>
+        </div>
+          <div lgm-imagen *ngIf="lanzamiento.rocket" [ngStyle]="{'background-image':'url(' + lanzamiento.rocket.imageURL + ')'}"> </div>          
     </div>    
 </div>

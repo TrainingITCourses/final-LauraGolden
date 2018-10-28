@@ -40,6 +40,7 @@ export class LanzamientoComponent implements OnInit {
     this.lanzamiento$ = this.store.select('lanzamiento').pipe(
       map(Lan => {
         if (Lan.cargado) {
+          // this.store.dispatch(new CargarRuta(['Lanzamiento ' + Lan.lanzamiento[0].name , true, false ]));
           return Lan.lanzamiento[0];
         }
       })
