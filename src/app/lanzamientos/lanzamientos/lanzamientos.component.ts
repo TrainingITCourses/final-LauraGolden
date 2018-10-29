@@ -67,35 +67,5 @@ export class LanzamientosComponent implements OnInit {
         }
       })
     );
-
-
-
-    // this.store.subscribe(
-    //   st => {
-    //     const estado = st.estados.estadosC.filter(estActual => estActual.id === Number(_this.idEstado));
-    //     if (estado.length > 0) {
-    //       // Ya se que no es la solución más idónea (con más tiempo buscaría otra), pero si no se me quedaba bloqueado
-    //       if (_this.estadoActual === undefined) {
-    //         _this.estadoActual = estado[0].id;
-    //         this.store.dispatch(
-    //             new CargarRuta([
-    //                 'Estado: ' + estado[0].name + ' - ' + estado[0].description ,
-    //                 true, // ver boton volver
-    //                 true, // ver botones fechas
-    //                 _this.idEstado,
-    //                 'Lanzamientos' ]));
-    //       } else if (estado[0].id !== _this.estadoActual) {
-    //         _this.estadoActual = estado[0].id;
-    //         this.store.dispatch(
-    //             new CargarRuta([
-    //               'Estado: ' + estado[0].name + ' - ' + estado[0].description ,
-    //               true,
-    //               true,
-    //                _this.idEstado,
-    //                'Lanzamientos' ]));
-    //       }
-    //     }
-    //   }
-    // );
   }
 }
