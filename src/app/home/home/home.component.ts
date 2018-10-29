@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           map(est2 => {
             if (est2.cargados) {
               this.subscripcionEstados.unsubscribe();
-              return est2.estados;
+              return est2.estadosC;
             }
           })
         );
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           if (_this.subscripcionLanzamientos) {
             _this.subscripcionLanzamientos.unsubscribe();
             return this.store.dispatch(
-                       new CargarRuta([ 'Estados : Lanzamientos cargados ' + lan.lanzamientos.length , false, false, 0, 'Estados' ]));
+                       new CargarRuta([ `Estados : Nº Lanzamientos: ${lan.lanzamientos.length}` , false, false, 0, 'Estados' ]));
           }
         }
       }

@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CargarLanzamientos } from '../../reducers/lanzamientos/lanzamientos.actions';
 import { CargarRuta } from 'src/app/reducers/rutas/rutas.actions';
-// import { CargaEstado } from '../../reducers/estado/estado.actions';
 
 
 @Component({
@@ -21,6 +20,7 @@ export class LanzamientosComponent implements OnInit {
   public estadoSel: number;
   public estado$: Observable<any>;
   private estadoActual: number;
+  private nombreEstActual: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -47,37 +47,55 @@ export class LanzamientosComponent implements OnInit {
         if (Lan.cargados) {
           const idE = _this.idEstado;
           _this.estadoSel = idE;
+
+          this.store.subscribe(
+            st => {
+              if (_this.nombreEstActual !== st.estados.nombre) {
+                _this.nombreEstActual = st.estados.nombre;
+                this.store.dispatch(
+                        new CargarRuta([
+                            `Estado:  ${_this.nombreEstActual} - Nº Lanzamientos: ${Lan.lanzamientos.length}`,
+                            true, // ver boton volver
+                            true, // ver botones fechas
+                            _this.idEstado,
+                            'Lanzamientos' ]));
+              }
+            }
+          );
+
           return Lan.lanzamientos;
         }
       })
     );
 
-    this.store.subscribe(
-      st => {
-        const estado = st.estados.estados.filter(estActual => estActual.id === Number(_this.idEstado));
-        if (estado.length > 0) {
-          // Ya se que no es la solución más idónea (con más tiempo buscaría otra), pero si no se me quedaba bloqueado
-          if (_this.estadoActual === undefined) {
-            _this.estadoActual = estado[0].id;
-            this.store.dispatch(
-                new CargarRuta([
-                    'Estado: ' + estado[0].name + ' - ' + estado[0].description ,
-                    true, // ver boton volver
-                    true, // ver botones fechas
-                    _this.idEstado,
-                    'Lanzamientos' ]));
-          } else if (estado[0].id !== _this.estadoActual) {
-            _this.estadoActual = estado[0].id;
-            this.store.dispatch(
-                new CargarRuta([
-                  'Estado: ' + estado[0].name + ' - ' + estado[0].description ,
-                  true,
-                  true,
-                   _this.idEstado,
-                   'Lanzamientos' ]));
-          }
-        }
-      }
-    );
+
+
+    // this.store.subscribe(
+    //   st => {
+    //     const estado = st.estados.estadosC.filter(estActual => estActual.id === Number(_this.idEstado));
+    //     if (estado.length > 0) {
+    //       // Ya se que no es la solución más idónea (con más tiempo buscaría otra), pero si no se me quedaba bloqueado
+    //       if (_this.estadoActual === undefined) {
+    //         _this.estadoActual = estado[0].id;
+    //         this.store.dispatch(
+    //             new CargarRuta([
+    //                 'Estado: ' + estado[0].name + ' - ' + estado[0].description ,
+    //                 true, // ver boton volver
+    //                 true, // ver botones fechas
+    //                 _this.idEstado,
+    //                 'Lanzamientos' ]));
+    //       } else if (estado[0].id !== _this.estadoActual) {
+    //         _this.estadoActual = estado[0].id;
+    //         this.store.dispatch(
+    //             new CargarRuta([
+    //               'Estado: ' + estado[0].name + ' - ' + estado[0].description ,
+    //               true,
+    //               true,
+    //                _this.idEstado,
+    //                'Lanzamientos' ]));
+    //       }
+    //     }
+    //   }
+    // );
   }
 }

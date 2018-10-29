@@ -41,9 +41,9 @@ export class LanzamientoComponent implements OnInit {
         if (Lan.cargado) {
           // Ya se que no es la solución más idónea (con más tiempo buscaría otra), pero si no se me quedaba bloqueado
           if (_this.lanzamiento === undefined ) {
-            this.store.dispatch(new CargarRuta(['Lanzamiento: ' + Lan.lanzamiento[0].name , true, false , 'Lanzamiento' ]));
+            this.store.dispatch(new CargarRuta([`Lanzamiento  ${Lan.lanzamiento[0].name}` , true, false , 'Lanzamiento' ]));
           } else if ( _this.lanzamiento.id !== Lan.lanzamiento[0].id) {
-            this.store.dispatch(new CargarRuta(['Lanzamiento: ' + Lan.lanzamiento[0].name , true, false , 'Lanzamiento' ]));
+            this.store.dispatch(new CargarRuta([`Lanzamiento  ${Lan.lanzamiento[0].name}` , true, false , 'Lanzamiento' ]));
           }
           _this.lanzamiento  = Lan.lanzamiento[0];
           return Lan.lanzamiento[0];

@@ -5,6 +5,7 @@ export enum EstadosActionTypes {
   CargarEstados = '[Estados] Cargar',
   EstadosCargados = '[Estados] Cargados',
   EstadosNoCargados = '[Estados] No Cargados',
+  CargarNombre = '[Estados] Estado Actual',
 }
 
 export class CargarEstados implements Action {
@@ -16,6 +17,11 @@ export class EstadosCargados implements Action {
   constructor(public readonly payload: Estado[]) { }
 }
 
+export class CargarNombre implements Action {
+  readonly type = EstadosActionTypes.CargarNombre;
+  constructor(public readonly payload: string) { }
+}
+
 export class EstadosNoCargados implements Action {
   readonly type = EstadosActionTypes.EstadosNoCargados;
   constructor(public readonly payload: string) { }
@@ -23,4 +29,5 @@ export class EstadosNoCargados implements Action {
 export type EstadosActions =
   |CargarEstados
   |EstadosCargados
-  |EstadosNoCargados;
+  |EstadosNoCargados
+  |CargarNombre;

@@ -111,6 +111,13 @@ html, body { height: 100%; overflow: hidden; }
       cursor: hand;
     }
 
+    [lgm-button3]:hover {
+      color: #d18017;
+      background-color: #e0ba88;
+      left: .1em;
+    }
+
+
     button {
       font-family: 'Roboto';
       background-color: #d18017;
@@ -124,6 +131,12 @@ html, body { height: 100%; overflow: hidden; }
       margin-top: 15px;
       cursor: pointer;
       cursor: hand;
+    }
+
+    button:hover {
+      color: #d18017;
+      background-color: #e0ba88;
+      left: .1em;
     }
   }
 
@@ -176,6 +189,12 @@ html, body { height: 100%; overflow: hidden; }
     float:left;
     cursor: pointer;
     cursor: hand;
+  }
+
+  button:hover {
+    color: #d18017;
+    background-color: #e0ba88;
+    left: .1em;
   }
 
   p {

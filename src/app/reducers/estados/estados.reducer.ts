@@ -3,13 +3,15 @@ import { Estado } from '../../interfaces/Estado';
 
 
 export interface EstadosState {
-  estados: Estado[];
+  estadosC: Estado[];
   cargados: boolean;
+  nombre: string;
 }
 
 export const initialState: EstadosState = {
-  estados: [] ,
-  cargados: false
+  estadosC: [] ,
+  cargados: false,
+  nombre: '',
 };
 
 export function reducer(state = initialState, action: EstadosActions): EstadosState {
@@ -17,7 +19,9 @@ export function reducer(state = initialState, action: EstadosActions): EstadosSt
     case EstadosActionTypes.CargarEstados:
       return { ...state, cargados: false };
     case EstadosActionTypes.EstadosCargados:
-      return { ...state, estados: action.payload, cargados: true };
+      return { ...state, estadosC: action.payload, cargados: true };
+    case EstadosActionTypes.CargarNombre:
+      return { ...state, nombre: action.payload };
     case EstadosActionTypes.EstadosNoCargados:
       this.message = action.payload;
       break;
